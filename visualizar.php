@@ -3,11 +3,13 @@ require('conexao.php');
 
 $id = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
 
-$sql = "SELECT * FROM `registros` WHERE id = $id";
+$sql = "SELECT * FROM `usuarios` WHERE id = $id";
 
 $statement = $pdo->query($sql);
 
 $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+$resposta = "SELECT * FROM `registros` WHERE usuario = $result";
 
 ?>
 
@@ -28,7 +30,7 @@ $result = $statement->fetch(PDO::FETCH_ASSOC);
       <div>
         <h4>Dados</h4>
       </div>
-      <p><b>Nome:</b> <?= $result['nome'] ?> </p>
+      <p><b>Nome:</b> <?= $resposta['numero'] ?> </p>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>

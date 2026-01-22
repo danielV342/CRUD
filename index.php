@@ -2,7 +2,7 @@
 
 require('conexao.php');
 
-$sql = "SELECT * FROM `registros`";
+$sql = "SELECT * FROM `usuarios`";
 $statement = $pdo->query($sql);
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
