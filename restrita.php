@@ -1,8 +1,14 @@
 <?php
 
+session_start();
+
+if ($_SESSION['tipo_usuario'] !== 'admin') {
+    header("Location: login.php");
+    exit;
+}
 require('conexao.php');
 
-$sql = "SELECT * FROM `usuarios`";
+$sql = "SELECT * FROM `registros`";
 $statement = $pdo->query($sql);
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -23,24 +29,51 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     <header>
 
     </header>
-    <main class="container">
-      <form class="form d-flex gap-3 mt-3" action="cadastrar.php" method="post">
-          <input  autocomplete="off" placeholder="Nome" class="form-control" type="text" name="nome">
-          <input autocomplete="off" placeholder="Sobrenome" class="form-control" type="text" name="sobrenome">
-          <input autocomplete="off"class="form-control" type="date" name="dia">
-          <input type="submit" value="Cadastrar" class="btn btn-sm btn-success">
-      </form>
+    <main>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Registro das salas</a>
+            <span class="navbar-text text-white me-3">
+                Olá, Usuário
+            </span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Visualizar relatórios</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Gerenciar usuários</a>
+                </li>
+
+                <!-- <li class="nav-item"> 
+                    <a class="nav-link" href="#">Relatórios</a>
+                </li>-->
+            </ul>
+
+
+
+            <a href="logout.php" class="btn btn-outline-light">Sair</a>
+        </div>
+    </div>
+</nav>
 <hr>
       <table class="table table-striped">
         <thead>
           <th>Nome</th>
+          <th>Sala</th>
           <th>Opcoes</th>
         </thead>
         <tbody>
           <?php
           foreach ($result as $row): ?>
           <tr>
-            <td><?= $row['nome'] ?></td>
+            <td><?= $row['usuario'] ?></td>
+            <td><?= $row['numero'] ?></td>
             <td class="d-flex justify-content-end gap-3">
               <a class="btn btn-sm btn-primary" href="visualizar.php?id=<?= $row['id'] ?>">Ver</a>
               <a class="btn btn-sm btn-warning" href="editar.php?id=<?= $row['id'] ?>">Editar</a>
