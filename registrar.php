@@ -1,6 +1,20 @@
 <?php
 
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
 require('conexao.php');
+
+$usuario = $_SESSION['usuario_id'];
+
+$sql = "SELECT numero FROM salas WHERE aberta = 0 ORDER BY numero";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+
+$salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -15,43 +29,68 @@ require('conexao.php');
 
   <body>
     <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Registro das salas</a>
+                    <span class="navbar-text text-white me-3">
+                        Olá, <?= $_SESSION['nome_usuario'] ?>
+                    </span>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
+                    <div class="collapse navbar-collapse" id="menuNavbar">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Registrar fechamento</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Meus registros</a>
+                            </li>
+
+                            <!-- <li class="nav-item"> 
+                                <a class="nav-link" href="#">Relatórios</a>
+                            </li>-->
+                        </ul>
+
+                    <a href="logout.php" class="btn btn-outline-light">Sair</a>
+                    
+                </div>
+            </div>
+        </nav>
     </header>
-    <main>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Registro das salas</a>
-            <span class="navbar-text text-white me-3">
-                Olá, Usuário
-            </span>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <main class="container">
 
-        <div class="collapse navbar-collapse" id="menuNavbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Registrar fechamento</a>
-                </li>
+      <form class="form d-column gap-3 mt-3" action="cadastrar.php" method="post">
+          <!-- <input  autocomplete="off" placeholder="Nome" class="form-control" type="text" name="nome">
+          <input autocomplete="off" placeholder="Sobrenome" class="form-control" type="text" name="sobrenome">
+          <input autocomplete="off"class="form-control" type="date" name="dia"> -->
+            <label for="salas" class="form-label">Registrar Sala</label>
+            <select name="numero" id="numero" class="form-select" required>
+                <option value="">Selecione uma sala</option>
+                <?php foreach ($salas as $salas): ?>
+                <option value="<?= $salas['numero'] ?>">
+                    <?= htmlspecialchars($salas['numero']) ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
+            <!-- <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="aberta" id="aberta" value="1">
+            <label class="form-check-input" for="aberta">
+                Computador ligado?
+            </label>
+            </div> -->
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Meus registros</a>
-                </li>
+          <input type="submit" value="Cadastrar" class="btn btn-sm btn-success">
+      </form>
 
-                <!-- <li class="nav-item"> 
-                    <a class="nav-link" href="#">Relatórios</a>
-                </li>-->
-            </ul>
+  
 
 
 
-            <a href="logout.php" class="btn btn-outline-light">Sair</a>
-        </div>
-    </div>
-</nav>
 
-    
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>

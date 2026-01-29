@@ -9,7 +9,7 @@ $senha = $_POST['senha'] ?? '';
 
 
 
-$sql = "SELECT id, senha, tipo FROM usuarios WHERE usuario = :usuario LIMIT 1";
+$sql = "SELECT id, senha, tipo, nome FROM usuarios WHERE usuario = :usuario LIMIT 1";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(":usuario", $usuario);
 $stmt->execute();
@@ -21,6 +21,8 @@ if ($stmt->rowCount() > 0) {
         $_SESSION['usuario_id'] = $dados['id'];
         $_SESSION['usuario_nome'] = $usuario;
         $_SESSION['tipo_usuario'] = $dados['tipo'];
+        $_SESSION['nome_usuario'] = $dados['nome'];
+
 
         if ($dados['tipo'] === 'admin') {
             header('Location: restrita.php');

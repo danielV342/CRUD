@@ -8,7 +8,7 @@ if ($_SESSION['tipo_usuario'] !== 'admin') {
 }
 require('conexao.php');
 
-$sql = "SELECT * FROM `registros`";
+$sql = "SELECT * FROM `registros` WHERE aberta = 1";
 $statement = $pdo->query($sql);
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -34,7 +34,7 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Registro das salas</a>
             <span class="navbar-text text-white me-3">
-                Olá, Usuário
+                Olá, <?= $_SESSION['nome_usuario'] ?>
             </span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -47,7 +47,7 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Gerenciar usuários</a>
+                    <a class="nav-link" href="gerenciar_usuario.php">Gerenciar usuários</a>
                 </li>
 
                 <!-- <li class="nav-item"> 
@@ -58,6 +58,7 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
             <a href="logout.php" class="btn btn-outline-light">Sair</a>
+            <a href="registrar.php" class="btn btn-outline-light">registrar</a>
         </div>
     </div>
 </nav>
