@@ -76,7 +76,7 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             <td><?= $row['nome'] ?></td>
 
             <td class="d-flex justify-content-end gap-2">
-              <a class="btn btn-sm btn-primary" href="visualizar.php?id=<?= $row['id'] ?>">Ver</a>
+              <a class="btn btn-sm btn-primary" href="opcoes/verUsuario.php">Ver</a>
               <a class="btn btn-sm btn-warning" href="editar.php?id=<?= $row['id'] ?>">Editar</a>
               <a class="btn btn-sm btn-danger" href="excluir.php?id=<?= $row['id'] ?>">Excluir</a>
             </td>

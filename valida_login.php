@@ -28,7 +28,7 @@ if ($stmt->rowCount() > 0) {
             header('Location: restrita.php');
             exit();
         } else {
-            header('Location: padrao.php');
+            header('Location: registrar.php');
             exit();
         }
     } else {
