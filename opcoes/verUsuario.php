@@ -7,11 +7,12 @@ if ($_SESSION['tipo_usuario'] !== 'admin') {
     exit(); 
 }
 
-$usuario = $_SESSION['nome_usuario'];
-
 require('../conexao.php');
 
-$sql = "SELECT * FROM `registros` WHERE usuario = '$usuario'";
+$usuario = filter_input(INPUT_GET, 'usuario', FILTER_DEFAULT);
+echo $usuario;
+
+$sql = "SELECT * FROM `registros` WHERE usuario_login = '$usuario'";
 $statement = $pdo->query($sql);
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 

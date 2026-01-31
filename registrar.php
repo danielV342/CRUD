@@ -81,6 +81,15 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <!-- FECHAR -->
                                     <form method="post" action="fechamento.php">
                                         <input type="hidden" name="numero" value="<?= $sala['numero'] ?>">
+                                        <div class="dropdown">
+  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    
+  </button>
+  <ul class="dropdown-menu">
+    <li><input type="text" name="" id=""></li>
+   
+  </ul>
+</div>
                                         <button class="btn btn-danger btn-sm">
                                             Fechar sala
                                         </button>
@@ -89,6 +98,15 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <!-- ABRIR -->
                                     <form method="post" action="abertura.php">
                                         <input type="hidden" name="numero" value="<?= $sala['numero'] ?>">
+                                        <div class="dropdown">
+  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    
+  </button>
+  <ul class="dropdown-menu">
+    <li><input type="text" name="" id=""></li>
+   
+  </ul>
+</div>
                                         <button class="btn btn-success btn-sm">
                                             Abrir sala
                                         </button>

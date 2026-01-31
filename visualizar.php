@@ -1,9 +1,9 @@
 <?php
 require('conexao.php');
 
-$id = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
+$usuario = filter_input(INPUT_GET, 'usuario', FILTER_DEFAULT);
 
-$sql = "SELECT * FROM `registros` WHERE id = $id";
+$sql = "SELECT * FROM `registros` WHERE usuario = $usuario ";
 
 $statement = $pdo->query($sql);
 
