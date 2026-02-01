@@ -57,66 +57,72 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </header>
     <main>
         <div class="container mt-4">
-            <div class="row g-3">
+            <div class="row">
 
                 <?php foreach ($salas as $sala): ?>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
 
-                        <div class="card text-center
-                            <?= $sala['aberta'] ? 'border-success' : 'border-danger' ?>">
+                        <div class="card text-center w-100 h-100
+                        <?= $sala['aberta'] ? 'border-success' : 'border-danger' ?>">
 
-                            <div class="card-header fw-bold">
-                                Sala <?= htmlspecialchars($sala['numero']) ?>
-                            </div>
-
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Status:
-                                    <strong class="<?= $sala['aberta'] ? 'text-success' : 'text-danger' ?>">
-                                        <?= $sala['aberta'] ? 'Aberta' : 'Fechada' ?>
-                                    </strong>
-                                </p>
-
-                                <?php if ($sala['aberta']): ?>
-                                    <!-- FECHAR -->
-                                    <form method="post" action="fechamento.php">
-                                        <input type="hidden" name="numero" value="<?= $sala['numero'] ?>">
-                                        <div class="dropdown">
-  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    
-  </button>
-  <ul class="dropdown-menu">
-    <li><input type="text" name="" id=""></li>
-   
-  </ul>
-</div>
-                                        <button class="btn btn-danger btn-sm">
-                                            Fechar sala
-                                        </button>
-                                    </form>
-                                <?php else: ?>
-                                    <!-- ABRIR -->
-                                    <form method="post" action="abertura.php">
-                                        <input type="hidden" name="numero" value="<?= $sala['numero'] ?>">
-                                        <div class="dropdown">
-  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    
-  </button>
-  <ul class="dropdown-menu">
-    <li><input type="text" name="" id=""></li>
-   
-  </ul>
-</div>
-                                        <button class="btn btn-success btn-sm">
-                                            Abrir sala
-                                        </button>
-                                    </form>
-                                <?php endif; ?>
-                            </div>
-
+                        <div class="card-header fw-bold">
+                        Sala <?= htmlspecialchars($sala['numero']) ?>
                         </div>
 
+                        <div class="card-body" >
+
+                        <p>
+                            Status:
+                            <strong class="<?= $sala['aberta'] ? 'text-success' : 'text-danger' ?>">
+                            <?= $sala['aberta'] ? 'Aberta' : 'Fechada' ?>
+                            </strong>
+                        </p>
+
+                        <?php if ($sala['aberta']): ?>
+
+                            <form method="post" action="fechamento.php">
+                            <input type="hidden" name="numero" value="<?= $sala['numero'] ?>">
+                            <button class="btn btn-danger btn-lg">
+                                Fechar sala
+                            </button>
+                           <br>
+                            <br>
+                             <div class="collapse" id="det<?= $sala['numero'] ?>">
+                        <div class="card-body border-top">
+                            <input class="form-control" type="text" placeholder="Informe aqui as observações"name="observacoes" id="observacoes">
+                        </div>
+                        </div>
+                         </form>
+                            <button
+                            class="btn btn-sm btn-link w-100"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#det<?= $sala['numero'] ?>"
+                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                    <path d="M3.204 5h9.592L8 10.481zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659"/>
+                    </svg>
+                            </button>
+
+                        <?php else: ?>
+
+                            <form method="post" action="abertura.php">
+                            <input type="hidden" name="numero" value="<?= $sala['numero'] ?>">
+                            <button class="btn btn-success btn-lg">
+                                Abrir sala
+                            </button>
+                            </form>
+
+                        <?php endif; ?>
+
+                        </div> <!-- card-body -->
+
+                        <!-- COLLAPSE DENTRO DO CARD -->
+                       
+
+                    </div> <!-- card -->
+
                     </div>
+
                 <?php endforeach; ?>
 
             </div>
@@ -124,4 +130,4 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
-</html>ml
+</html>

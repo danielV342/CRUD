@@ -10,11 +10,12 @@ $usuario_id = $_SESSION['nome_usuario'];
 $usuario_login = $_SESSION['usuario_login'];
 
 $numero = filter_input(type: INPUT_POST, var_name: 'numero', filter: FILTER_DEFAULT);
+$observacoes = filter_input(type: INPUT_POST, var_name: 'observacoes', filter: FILTER_DEFAULT);
 // $sobrenome = filter_input(type: INPUT_POST, var_name: 'sobrenome', filter: FILTER_DEFAULT);
 // $dia = filter_input(type: INPUT_POST, var_name: 'dia', filter: FILTER_DEFAULT);
 
 try{
-    $sql = "INSERT INTO `registros` (numero, data, usuario, acao, usuario_login) VALUES ('$numero', '$dataHora', '$usuario_id', 'Fechou', '$usuario_login')";
+    $sql = "INSERT INTO `registros` (numero, data, usuario, acao, usuario_login, observacoes) VALUES ('$numero', '$dataHora', '$usuario_id', 'Fechou', '$usuario_login', '$observacoes')";
     $statement = $pdo->query(query: $sql);
 } catch(PDOException $e) {
     echo "". $e->getMessage();
