@@ -1,14 +1,13 @@
 <?php
 
-
 session_start();
 
 if ($_SESSION['tipo_usuario'] !== 'padrao') {
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
 
-require('conexao.php');
+require('scripts/conexao.php');
 
 ?>
 

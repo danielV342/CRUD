@@ -3,10 +3,10 @@
 session_start();
 
 if ($_SESSION['tipo_usuario'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
-require('conexao.php');
+require('scripts/conexao.php');
 
 $sql = "SELECT * FROM `registros`";
 $statement = $pdo->query($sql);
@@ -25,7 +25,7 @@ $result1 = $statement1->fetchAll(PDO::FETCH_ASSOC);
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>R</title>
+    <title>Registros</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
 
@@ -34,9 +34,6 @@ $result1 = $statement1->fetchAll(PDO::FETCH_ASSOC);
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Registro das salas</a>
-            <span class="navbar-text text-white me-3">
-                Olá, <?= $_SESSION['nome_usuario'] ?>
-            </span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,17 +45,13 @@ $result1 = $statement1->fetchAll(PDO::FETCH_ASSOC);
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="gerenciar_usuario.php">Gerenciar usuários</a>
+                    <a class="nav-link" href="gerenciarUsuario.php">Gerenciar usuários</a>
                 </li>
-
-                <!-- <li class="nav-item"> 
-                    <a class="nav-link" href="#">Relatórios</a>
-                </li>-->
             </ul>
-
-
-
-            <a href="logout.php" class="btn btn-outline-light">Sair</a>
+            <span class="navbar-text text-white me-3">
+                Olá, <td><?= htmlspecialchars($_SESSION['nome_usuario'], ENT_QUOTES, 'UTF-8') ?></td> 
+            </span>
+            <a href="scripts/logout.php" class="btn btn-outline-light">Sair</a>
         </div>
     </div>
 </nav>
@@ -77,15 +70,10 @@ $result1 = $statement1->fetchAll(PDO::FETCH_ASSOC);
             <?php
             foreach ($result as $row): ?>
             <tr>
-                <td><?= $row['numero'] ?></td>
-                <td><?= $row['usuario'] ?></td>
-                <td><?= $row['data'] ?></td>
-                <td><?= $row['acao'] ?></td>
-            <!-- <td class="d-flex justify-content-end gap-3">
-              <a class="btn btn-sm btn-primary" href="visualizar.php?id=<?= $row['id'] ?>">Ver</a>
-              <a class="btn btn-sm btn-warning" href="editar.php?id=<?= $row['id'] ?>">Editar</a>
-              <a class="btn btn-sm btn-danger" href="excluir.php?id=<?= $row['id'] ?>">Excluir</a>
-            </td> -->
+                <td><?= htmlspecialchars($row['numero'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($row['usuario'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($row['data'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($row['acao'], ENT_QUOTES, 'UTF-8') ?></td>
             </tr>
             <?php endforeach ?>
         </tbody>

@@ -2,6 +2,10 @@
 
 session_start();
 
+if ($_SESSION['tipo_usuario'] !== 'admin') {
+    header("Location: index.php");
+    exit;
+}
 ?>
 
 <!doctype html>
@@ -23,30 +27,33 @@ session_start();
             <div class="card shadow">
               <div class="card-body p-4">
 
-                <h3 class="text-center mb-4">Login</h3>
+                <h3 class="text-center mb-4">Cadastro</h3>
 
-                <form action="valida_login.php" method="post">
+                <form action="scripts/criar_usuario.php" method="post">
 
-                  <label class="form-label">Usuário</label>
+                  <label class="form-label">Nome</label>
+                  <input class="form-control" type="text" autocomplete="off" name="nome">
+
+                  <label class="form-label">Usuario</label>
                   <input class="form-control" type="text" autocomplete="off" name="usuario">
 
                   <label class="form-label">Senha</label>
                   <input class="form-control" type="password" autocomplete="off" name="senha">
 
-                  <button class="btn btn-primary w-100 mt-4" type="submit">Entrar</button>
+                  <label class="form-label">Tipo</label>
+                  <select class="form-select" name="tipo" id="tipo">
+                    <option value="admin">Admin</option>
+                    <option value="padrao">Padrao</option>
+                  </select>
+                  
+
+                  <button class="btn btn-primary w-100 mt-4" type="submit">Cadastrar</button>
                 </form>
 
               </div>
             </div>
           </div>
       </div>
-    <?php
-      if(isset($_SESSION['erro_login'])){
-        echo "<p class='text-danger'>" . $_SESSION['erro_login'] . "</p>";
-        unset($_SESSION["erro_login"]);
-        }
-
-    ?>
     
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

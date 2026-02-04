@@ -26,19 +26,19 @@ if ($stmt->rowCount() > 0) {
 
 
         if ($dados['tipo'] === 'admin') {
-            header('Location: restrita.php');
+            header('Location: ../restrita.php');
             exit();
         } else {
-            header('Location: registrar.php');
+            header('Location: ../registrar.php');
             exit();
         }
     } else {
         $_SESSION['erro_login'] = "Senha incorreta!";
-        header("Location: login.php");
+        header("Location: ../login.php");
         exit();
     }
 } else {
-    $_SESSION['erro_login'] = "Usu[ario nao encontrado";
-    header("Location: login.php");
+    $_SESSION['erro_login'] = "Usuário não encontrado";
+    header("Location: ../login.php");
     exit();
 }

@@ -2,7 +2,12 @@
 
 session_start();
 
-require 'conexao.php';
+if ($_SESSION['tipo_usuario'] !== 'padrao') {
+    header("Location: index.php");
+    exit;
+}
+
+require 'scripts/conexao.php';
 
 $usuario = $_SESSION['usuario_id'];
 
@@ -18,7 +23,7 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registrar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
 </head>
@@ -49,7 +54,7 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <span class="navbar-text text-white me-3">
                         Olá, <?= $_SESSION['nome_usuario'] ?>
                     </span>
-                    <a href="logout.php" class="btn btn-outline-light">Sair</a>
+                    <a href="scripts/logout.php" class="btn btn-outline-light">Sair</a>
                     
                 </div>
             </div>
@@ -80,7 +85,7 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <?php if ($sala['aberta']): ?>
 
-                            <form method="post" action="fechamento.php">
+                            <form method="post" action="scripts/fechamento.php">
                             <input type="hidden" name="numero" value="<?= $sala['numero'] ?>">
                             <button class="btn btn-danger btn-lg">
                                 Fechar sala
@@ -89,7 +94,7 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <br>
                              <div class="collapse" id="det<?= $sala['numero'] ?>">
                         <div class="card-body border-top">
-                            <input class="form-control" type="text" placeholder="Informe aqui as observações"name="observacoes" id="observacoes">
+                            <input class="form-control" type="text" placeholder="Observações"name="observacoes" id="observacoes">
                         </div>
                         </div>
                          </form>
@@ -105,7 +110,7 @@ $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <?php else: ?>
 
-                            <form method="post" action="abertura.php">
+                            <form method="post" action="scripts/abertura.php">
                             <input type="hidden" name="numero" value="<?= $sala['numero'] ?>">
                             <button class="btn btn-success btn-lg">
                                 Abrir sala
